@@ -54,7 +54,7 @@ Tres scripts que se complementan, de más simple a más completo:
 
 ## Requisitos
 
-- macOS o Linux
+- macOS, Linux o Windows
 - [`uv`](https://github.com/astral-sh/uv) (gestor Python moderno). Los scripts
   usan headers PEP 723 para declarar dependencias inline, así que `uv` resuelve
   Python ≥3.12 y PyYAML automáticamente en un venv aislado por script. **No
@@ -66,9 +66,29 @@ Instalación de `uv`:
 # macOS
 brew install uv
 
-# Linux (otra opción)
+# Linux
 curl -LsSf https://astral.sh/uv/install.sh | sh
+
+# Windows (PowerShell)
+powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
+# o:  winget install --id=astral-sh.uv -e
 ```
+
+### Notas para Windows
+
+Los scripts funcionan en Windows con tres ajustes menores respecto a la
+documentación de abajo:
+
+- **Invocación**: el shebang `#!/usr/bin/env -S uv run --quiet` no aplica en
+  Windows. Usa `uv run scripts/foo.py ...` en lugar de `./scripts/foo.py ...`.
+- **Paths de password files**: en lugar de `/tmp/mail-pass-x`, usa algo como
+  `%TEMP%\mail-pass-x` o un path absoluto Windows. El path es solo un string
+  en `cuentas.yaml`, el código no lo asume hardcoded.
+- **Symlink `latest` del orquestador**: `os.symlink()` en Windows requiere
+  privilegios de admin o "developer mode" activado. Sin eso, verás un warning
+  `! No se pudo actualizar symlink 'latest'` y el orquestador seguirá
+  funcionando normal — solo perdés el atajo `--resume latest` y tenés que
+  pasar el `<run_id>` explícito (`--resume 2026-04-19T1030-...`).
 
 ## Configuración
 
