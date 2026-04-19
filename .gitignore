@@ -1,0 +1,25 @@
+# Datos de respaldos (gigas de .eml + state del orquestador)
+/data/
+
+# Configuracion con credenciales/paths reales
+/config/cuentas.yaml
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+.uv/
+
+# uv lockfiles temporales por script
+uv.lock
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editores
+.vscode/
+.idea/
+*.swp
+*~

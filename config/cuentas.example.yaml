@@ -1,0 +1,42 @@
+# Template de configuracion para email-downloader.
+# Copiar como cuentas.yaml y llenar con valores reales.
+# cuentas.yaml esta en .gitignore — nunca se commitea.
+#
+# Estructura:
+#   dominios:
+#     - dominio: <tu-dominio>
+#       imap_server: <hostname-del-servidor-imap>
+#       imap_port: 993                       # SSL/TLS estandar
+#       cuentas:
+#         - nombre: <identificador-corto>    # usado como carpeta en data/
+#           email: <direccion-completa>
+#           password_file: <path-al-archivo-con-password>
+#           omitir: false                    # opcional; true = saltar esta cuenta
+#
+# Notas sobre password_file:
+# - Archivo de texto plano con SOLO la password.
+# - Permisos recomendados: chmod 600.
+# - Crear con:  echo 'tu-password' > /tmp/mail-pass-<algo>
+# - El script hace rstrip('\r\n') al leer, asi que el \n que agrega `echo`
+#   se ignora. Otros caracteres (espacios, etc.) se preservan.
+# - Multiples cuentas pueden compartir el mismo password_file si tienen la
+#   misma password — util para corridas masivas con password temporal.
+#
+# Notas sobre omitir:
+# - Si omitir: true, el orquestador salta esa cuenta del queue.
+# - Util para cuentas vacias o desactivadas que no quieres borrar del archivo.
+
+dominios:
+  - dominio: <TU-DOMINIO>
+    imap_server: <IMAP-SERVER>
+    imap_port: 993
+    cuentas:
+      - nombre: <NOMBRE-CUENTA-1>
+        email: <EMAIL-1>
+        password_file: <PATH-AL-PASSWORD-FILE-1>
+
+      - nombre: <NOMBRE-CUENTA-2>
+        email: <EMAIL-2>
+        password_file: <PATH-AL-PASSWORD-FILE-2>
+
+  # Agrega mas dominios como bloques adicionales bajo `dominios:`.
